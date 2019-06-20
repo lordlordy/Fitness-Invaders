@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5322B3B9430071EA3B /* AppDelegate.swift */; };
-		736CFC5622B3B9430071EA3B /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 736CFC5522B3B9430071EA3B /* GameScene.sks */; };
-		736CFC5822B3B9430071EA3B /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 736CFC5722B3B9430071EA3B /* Actions.sks */; };
 		736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5922B3B9430071EA3B /* GameScene.swift */; };
 		736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5B22B3B9430071EA3B /* GameViewController.swift */; };
 		736CFC5F22B3B9430071EA3B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 736CFC5D22B3B9430071EA3B /* Main.storyboard */; };
@@ -17,6 +15,8 @@
 		736CFC6422B3B9440071EA3B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 736CFC6222B3B9440071EA3B /* LaunchScreen.storyboard */; };
 		736CFC6F22B3B9440071EA3B /* Fitness_InvadersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC6E22B3B9440071EA3B /* Fitness_InvadersTests.swift */; };
 		736CFC7A22B3B9440071EA3B /* Fitness_InvadersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC7922B3B9440071EA3B /* Fitness_InvadersUITests.swift */; };
+		737373BE22B52FAF00698DD4 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737373BD22B52FAF00698DD4 /* GameOverScene.swift */; };
+		73F1985B22B9814500DD9E26 /* dumbbell.png in Resources */ = {isa = PBXBuildFile; fileRef = 73F1985A22B9814500DD9E26 /* dumbbell.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +39,6 @@
 /* Begin PBXFileReference section */
 		736CFC5022B3B9430071EA3B /* Fitness Invaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Invaders.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		736CFC5322B3B9430071EA3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		736CFC5522B3B9430071EA3B /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		736CFC5722B3B9430071EA3B /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		736CFC5922B3B9430071EA3B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		736CFC5B22B3B9430071EA3B /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		736CFC5E22B3B9430071EA3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -53,6 +51,8 @@
 		736CFC7522B3B9440071EA3B /* Fitness InvadersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Fitness InvadersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		736CFC7922B3B9440071EA3B /* Fitness_InvadersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_InvadersUITests.swift; sourceTree = "<group>"; };
 		736CFC7B22B3B9440071EA3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		737373BD22B52FAF00698DD4 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		73F1985A22B9814500DD9E26 /* dumbbell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dumbbell.png; path = "../../../../Documents/MSc/IXN Project/icons/dumbbell.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +83,7 @@
 		736CFC4722B3B9430071EA3B = {
 			isa = PBXGroup;
 			children = (
+				73F1985722B97FA700DD9E26 /* sprite images */,
 				736CFC5222B3B9430071EA3B /* Fitness Invaders */,
 				736CFC6D22B3B9440071EA3B /* Fitness InvadersTests */,
 				736CFC7822B3B9440071EA3B /* Fitness InvadersUITests */,
@@ -104,14 +105,13 @@
 			isa = PBXGroup;
 			children = (
 				736CFC5322B3B9430071EA3B /* AppDelegate.swift */,
-				736CFC5522B3B9430071EA3B /* GameScene.sks */,
-				736CFC5722B3B9430071EA3B /* Actions.sks */,
 				736CFC5922B3B9430071EA3B /* GameScene.swift */,
 				736CFC5B22B3B9430071EA3B /* GameViewController.swift */,
 				736CFC5D22B3B9430071EA3B /* Main.storyboard */,
 				736CFC6022B3B9440071EA3B /* Assets.xcassets */,
 				736CFC6222B3B9440071EA3B /* LaunchScreen.storyboard */,
 				736CFC6522B3B9440071EA3B /* Info.plist */,
+				737373BD22B52FAF00698DD4 /* GameOverScene.swift */,
 			);
 			path = "Fitness Invaders";
 			sourceTree = "<group>";
@@ -132,6 +132,14 @@
 				736CFC7B22B3B9440071EA3B /* Info.plist */,
 			);
 			path = "Fitness InvadersUITests";
+			sourceTree = "<group>";
+		};
+		73F1985722B97FA700DD9E26 /* sprite images */ = {
+			isa = PBXGroup;
+			children = (
+				73F1985A22B9814500DD9E26 /* dumbbell.png */,
+			);
+			path = "sprite images";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,10 +247,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				736CFC5F22B3B9430071EA3B /* Main.storyboard in Resources */,
-				736CFC5622B3B9430071EA3B /* GameScene.sks in Resources */,
+				73F1985B22B9814500DD9E26 /* dumbbell.png in Resources */,
 				736CFC6122B3B9440071EA3B /* Assets.xcassets in Resources */,
 				736CFC6422B3B9440071EA3B /* LaunchScreen.storyboard in Resources */,
-				736CFC5822B3B9430071EA3B /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +276,7 @@
 			files = (
 				736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */,
 				736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */,
+				737373BE22B52FAF00698DD4 /* GameOverScene.swift in Sources */,
 				736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -445,6 +453,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -462,6 +471,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
