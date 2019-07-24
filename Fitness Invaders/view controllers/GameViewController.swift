@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
         skView.ignoresSiblingOrder = true
         
         // Create and configure the scene.
-        let scene = GameScene(size: skView.frame.size)
+        let scene = GameScene(size: skView.frame.size, gameState: nil)
         skView.presentScene(scene)
         
 //        if let view = self.view as! SKView? {

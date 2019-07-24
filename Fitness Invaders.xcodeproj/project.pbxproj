@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730BE65922E8998500B0C6D5 /* BombSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */; };
+		730BE65F22E8A92E00B0C6D5 /* StandardBomb.png in Resources */ = {isa = PBXBuildFile; fileRef = 730BE65E22E8A92E00B0C6D5 /* StandardBomb.png */; };
+		730BE66122E8AA3F00B0C6D5 /* biggerBomb.png in Resources */ = {isa = PBXBuildFile; fileRef = 730BE66022E8AA3F00B0C6D5 /* biggerBomb.png */; };
+		730BE66322E8AC0600B0C6D5 /* biggestBomb.png in Resources */ = {isa = PBXBuildFile; fileRef = 730BE66222E8AC0600B0C6D5 /* biggestBomb.png */; };
+		730BE66522E8BA1E00B0C6D5 /* NextLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */; };
+		730BE66722E8BA8B00B0C6D5 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66622E8BA8B00B0C6D5 /* GameState.swift */; };
 		736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5322B3B9430071EA3B /* AppDelegate.swift */; };
 		736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5922B3B9430071EA3B /* GameScene.swift */; };
 		736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5B22B3B9430071EA3B /* GameViewController.swift */; };
@@ -21,6 +27,8 @@
 		7376BAFF22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */; };
 		7376BB0022E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */; };
 		7376BB0322E5BC6100E14CB1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7376BB0222E5BC6100E14CB1 /* MainViewController.swift */; };
+		7384D5FD22E85B990040779A /* Ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 7384D5FC22E85B990040779A /* Ship.png */; };
+		7384D60522E86DC80040779A /* Shield.png in Resources */ = {isa = PBXBuildFile; fileRef = 7384D60422E86DC80040779A /* Shield.png */; };
 		73AA134C22E7389800BB14BC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA134B22E7389800BB14BC /* Constants.swift */; };
 		73AA135022E73C2B00BB14BC /* dumbbell.png in Resources */ = {isa = PBXBuildFile; fileRef = 73AA134F22E73C2B00BB14BC /* dumbbell.png */; };
 		73DFC0FE22E5CA62002EE8AF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */; };
@@ -52,6 +60,12 @@
 		4BDCDDEF7A357A49A99B55D7 /* Pods-Fitness InvadersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness InvadersTests.release.xcconfig"; path = "Target Support Files/Pods-Fitness InvadersTests/Pods-Fitness InvadersTests.release.xcconfig"; sourceTree = "<group>"; };
 		5B2F0CB2347BCB9FF9281346 /* Pods_Fitness_Invaders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness_Invaders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		68CF6546A1C043E32DFB2F6C /* Pods_Fitness_InvadersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness_InvadersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombSpriteNode.swift; sourceTree = "<group>"; };
+		730BE65E22E8A92E00B0C6D5 /* StandardBomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StandardBomb.png; sourceTree = "<group>"; };
+		730BE66022E8AA3F00B0C6D5 /* biggerBomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = biggerBomb.png; sourceTree = "<group>"; };
+		730BE66222E8AC0600B0C6D5 /* biggestBomb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = biggestBomb.png; sourceTree = "<group>"; };
+		730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextLevelScene.swift; sourceTree = "<group>"; };
+		730BE66622E8BA8B00B0C6D5 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		736CFC5022B3B9430071EA3B /* Fitness Invaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Invaders.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		736CFC5322B3B9430071EA3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		736CFC5922B3B9430071EA3B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -70,6 +84,8 @@
 		7376BAFB22E5B80100E14CB1 /* FitnessInvaders.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FitnessInvaders.xcdatamodel; sourceTree = "<group>"; };
 		7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7376BB0222E5BC6100E14CB1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		7384D5FC22E85B990040779A /* Ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ship.png; sourceTree = "<group>"; };
+		7384D60422E86DC80040779A /* Shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Shield.png; sourceTree = "<group>"; };
 		73AA134B22E7389800BB14BC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		73AA134F22E73C2B00BB14BC /* dumbbell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dumbbell.png; sourceTree = "<group>"; };
 		73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -157,6 +173,11 @@
 			isa = PBXGroup;
 			children = (
 				73AA134F22E73C2B00BB14BC /* dumbbell.png */,
+				7384D5FC22E85B990040779A /* Ship.png */,
+				7384D60422E86DC80040779A /* Shield.png */,
+				730BE66022E8AA3F00B0C6D5 /* biggerBomb.png */,
+				730BE65E22E8A92E00B0C6D5 /* StandardBomb.png */,
+				730BE66222E8AC0600B0C6D5 /* biggestBomb.png */,
 				7376BB0122E5BC4B00E14CB1 /* view controllers */,
 				7376BAF922E5B7E100E14CB1 /* model */,
 				736CFC5322B3B9430071EA3B /* AppDelegate.swift */,
@@ -168,6 +189,8 @@
 				7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */,
 				737373BD22B52FAF00698DD4 /* GameOverScene.swift */,
 				73AA134B22E7389800BB14BC /* Constants.swift */,
+				730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */,
+				730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */,
 			);
 			path = "Fitness Invaders";
 			sourceTree = "<group>";
@@ -195,6 +218,7 @@
 			children = (
 				7376BAFA22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld */,
 				73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */,
+				730BE66622E8BA8B00B0C6D5 /* GameState.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -326,9 +350,14 @@
 			files = (
 				7376BAFE22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */,
 				736CFC5F22B3B9430071EA3B /* Main.storyboard in Resources */,
+				730BE66122E8AA3F00B0C6D5 /* biggerBomb.png in Resources */,
+				730BE65F22E8A92E00B0C6D5 /* StandardBomb.png in Resources */,
 				736CFC6122B3B9440071EA3B /* Assets.xcassets in Resources */,
+				7384D5FD22E85B990040779A /* Ship.png in Resources */,
 				736CFC6422B3B9440071EA3B /* LaunchScreen.storyboard in Resources */,
+				730BE66322E8AC0600B0C6D5 /* biggestBomb.png in Resources */,
 				73AA135022E73C2B00BB14BC /* dumbbell.png in Resources */,
+				7384D60522E86DC80040779A /* Shield.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +487,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				730BE66522E8BA1E00B0C6D5 /* NextLevelScene.swift in Sources */,
 				73DFC0FE22E5CA62002EE8AF /* CoreDataStack.swift in Sources */,
+				730BE65922E8998500B0C6D5 /* BombSpriteNode.swift in Sources */,
 				736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */,
 				736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */,
 				737373BE22B52FAF00698DD4 /* GameOverScene.swift in Sources */,
@@ -466,6 +497,7 @@
 				7376BAFC22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld in Sources */,
 				736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */,
 				73AA134C22E7389800BB14BC /* Constants.swift in Sources */,
+				730BE66722E8BA8B00B0C6D5 /* GameState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,7 +676,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -664,7 +696,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
