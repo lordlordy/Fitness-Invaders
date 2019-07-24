@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitness Invaders/GameScene.swift"
-            timestampString = "585677792.7272969"
+            timestampString = "585678059.673315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
             landmarkName = "update(_:)"
             landmarkType = "7">
          </BreakpointContent>

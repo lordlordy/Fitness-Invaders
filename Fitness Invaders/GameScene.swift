@@ -36,39 +36,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let shipBulletColour: SKColor = SKColor.white
 
     
-    // MARK:- variables that used to increase difficulty through the levels
-    // if screen isn't wide enough for row count then the number of rows will be increased to
-    // keep the number of invaders approximately correct
-    private var invaderRowCount = 12
-    private var invaderColCount = 12
-    // how much health removed. Max value is 1
-    let standardBombDamage: Float = -0.05
-    let biggerBombDamage: Float = -0.1
-    let biggestBombDamage: Float = -0.2
-    let standardBombHitsToKill: Int = 1
-    let biggerBombHitsToKill: Int = 2
-    let biggestBombHitsToKill: Int = 4
-    // This is the percentage of bombs that iwll be 'bigger' of the remaining the chance of a
-    // biggest bomb is this again. So overal chance of biggest == chanceOfBiggerBomb ^ 2
-    let chanceOfBiggerBomb = 0.1
-    // Maximum bombs on screen at once
-    let maxInvaderBombs = 20
-    
-    // MARK:- Defence variables.
-    var shipBulletsKnockOutBombs = true
-    var shipHealth: Float = 1.0
-    var shieldStrength: Float = 0.0
-    
-    // MARK:- Attack variables
-    // higher is better
-    let maxShipBullets = 300
-    // number of bullets fired at once
-    let numberOfSimultaneousBullets = 3
-    // shorter is quicker
-    let shipBulletDuration = 1.0
-    // whether bullets go straight up or towards the screen tap
-    let directionalBullets = true
-    
     // MARK:- Node Names
     
     private let invaderName = "invader"
@@ -79,9 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let shieldHUDName = "shieldHUD"
     private let shipBulletName = "shipBullet"
     
-    // MARK:- Score Variables
-    var score: Int = 0
-    var level: Int = 0
+
     private var gameEnding: Bool = false
     
     var contentCreated = false
@@ -135,13 +100,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupInvaders() {
-        let invadersPerRow = min(invaderColCount, Int(frame.width / (invaderSize.width + invaderGridSpace.width)) - 1)
-        var numberOfRows = invaderRowCount
+        let invadersPerRow = min(gameState.invaderColCount, Int(frame.width / (invaderSize.width + invaderGridSpace.width)) - 1)
+        var numberOfRows = gameState.invaderRowCount
         let baseOrigin = CGPoint(x: size.width / 3, y: size.height * 0.62)
         
         // need to adjust number of rows if we can't get appropriate number per row
-        if invadersPerRow < invaderColCount{
-            let totalInvaders = invaderColCount * invaderRowCount
+        if invadersPerRow < gameState.invaderColCount{
+            let totalInvaders = gameState.invaderColCount * gameState.invaderRowCount
             numberOfRows = Int(Double(totalInvaders) / Double(invadersPerRow))
         }
         
@@ -196,7 +161,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         healthLabel.fontSize = 25
         
         healthLabel.fontColor = SKColor.red
-        healthLabel.text = String(format: "Health: %.1f%%", shipHealth * 100.0)
+        healthLabel.text = String(format: "Health: %.1f%%", gameState.shipHealth * 100.0)
         healthLabel.position = CGPoint(
             x: frame.size.width / 2,
             y: size.height - (60 + healthLabel.frame.size.height/2)
@@ -208,7 +173,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shieldLabel.fontSize = 25
         
         shieldLabel.fontColor = SKColor.green
-        shieldLabel.text = String(format: "Shield: %.1f%%", shieldStrength * 100.0)
+        shieldLabel.text = String(format: "Shield: %.1f%%", gameState.shieldStrength * 100.0)
         shieldLabel.position = CGPoint(
             x: frame.size.width / 2,
             y: size.height - (80 + shieldLabel.frame.size.height/2)
@@ -220,27 +185,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func adjustScore(by points: Int) {
-        score += points
+        gameState.score += points
         if let score = childNode(withName: scoreHUDName) as? SKLabelNode {
-            score.text = String(format: "Score: %04u", self.score)
+            score.text = String(format: "Score: %04u", gameState.score)
         }
     }
     
     func adjustShipHealth(by healthAdjustment: Float) {
-        shipHealth = max(shipHealth + healthAdjustment, 0)
+        gameState.shipHealth = max(gameState.shipHealth + healthAdjustment, 0)
         if let health = childNode(withName: healthHUDName) as? SKLabelNode {
-            health.text = String(format: "Health: %.0f%%", self.shipHealth * 100)
+            health.text = String(format: "Health: %.0f%%", gameState.shipHealth * 100)
         }
     }
     
     func adjustShieldStength(by healthAdjustment: Float) {
-        shieldStrength = max(shieldStrength + healthAdjustment, 0)
+        gameState.shieldStrength = max(gameState.shieldStrength + healthAdjustment, 0)
         if let shield = childNode(withName: shieldHUDName) as? SKLabelNode {
-            shield.text = String(format: "Shield: %.0f%%", self.shieldStrength * 100)
+            shield.text = String(format: "Shield: %.0f%%", gameState.shieldStrength * 100)
         }
     }
     
-    func isGameOver() -> Bool {
+    private func isLevelFinished() -> Bool {
         let invader = childNode(withName: invaderName)
         
         var invaderTooLow = false
@@ -265,7 +230,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func nextLevel(){
-        level += 1
         
     }
     
@@ -282,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK:-
     
     override func update(_ currentTime: TimeInterval) {
-        if isGameOver() {
+        if isLevelFinished() {
             endGame()
         }
         
@@ -430,12 +394,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func makeBomb() -> SKSpriteNode {
-        if Double.random(in: 0...1) <= chanceOfBiggerBomb{
-            return BombSpriteNode(imageNamed: "biggerBomb.png", damage: biggerBombDamage, strength: biggerBombHitsToKill)
-        }else if Double.random(in: 0...1) <= chanceOfBiggerBomb{
-            return BombSpriteNode(imageNamed: "biggestBomb.png", damage: biggestBombDamage, strength: biggestBombHitsToKill)
+        if Double.random(in: 0...1) <= gameState.chanceOfBiggerBomb{
+            return BombSpriteNode(imageNamed: "biggerBomb.png", damage: gameState.biggerBombDamage, strength: gameState.biggerBombHitsToKill)
+        }else if Double.random(in: 0...1) <= gameState.chanceOfBiggerBomb{
+            return BombSpriteNode(imageNamed: "biggestBomb.png", damage: gameState.biggestBombDamage, strength: gameState.biggestBombHitsToKill)
         }else{
-            return BombSpriteNode(imageNamed: "StandardBomb", damage: standardBombDamage, strength: standardBombHitsToKill)
+            return BombSpriteNode(imageNamed: "StandardBomb", damage: gameState.standardBombDamage, strength: gameState.standardBombHitsToKill)
         }
     }
 
@@ -462,21 +426,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func fireShipBullets() {
         let currentBullets = children.filter({$0.name == shipBulletName}).count
         
-        if currentBullets < maxShipBullets{
+        if currentBullets < gameState.maxShipBullets{
             if let ship = childNode(withName: shipName) {
-                let middle: Int = numberOfSimultaneousBullets % 2
-                let pairs: Int = numberOfSimultaneousBullets / 2
+                let middle: Int = gameState.numberOfSimultaneousBullets % 2
+                let pairs: Int = gameState.numberOfSimultaneousBullets / 2
                 let bulletStartPosition = CGPoint(
                     x: ship.position.x,
                     y: ship.position.y + ship.frame.size.height - shipBulletSize.height / 2
                 )
-                let bulletDestination = directionalBullets ? extendTapLocationToBounds(from: bulletStartPosition) : CGPoint(x: ship.position.x, y: frame.size.height + shipBulletSize.height / 2)
+                let bulletDestination = gameState.directionalBullets ? extendTapLocationToBounds(from: bulletStartPosition) : CGPoint(x: ship.position.x, y: frame.size.height + shipBulletSize.height / 2)
                 
                 if middle == 1{
                     let bullet = makeBullet()
                     bullet.position = bulletStartPosition
     //                fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: shipBulletDuration, andSoundFileName: "ShipBullet.wav")
-                    fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: shipBulletDuration, andSoundFileName: nil)
+                    fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
                 }
                 
                 if pairs > 0{
@@ -486,13 +450,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             x: ship.position.x,
                             y: ship.position.y + ship.frame.size.height - bulletRight.frame.size.height / 2
                         )
-                        fireBullet(bullet: bulletRight, toDestination: CGPoint(x: bulletDestination.x + (CGFloat(i) * frame.width) / 8, y:bulletDestination.y), withDuration: shipBulletDuration, andSoundFileName: nil)
+                        fireBullet(bullet: bulletRight, toDestination: CGPoint(x: bulletDestination.x + (CGFloat(i) * frame.width) / 8, y:bulletDestination.y), withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
                         let bulletLeft = makeBullet()
                         bulletLeft.position = CGPoint(
                             x: ship.position.x,
                             y: ship.position.y + ship.frame.size.height - bulletLeft.frame.size.height / 2
                         )
-                        fireBullet(bullet: bulletLeft, toDestination: CGPoint(x: bulletDestination.x - (CGFloat(i) * frame.width) / 8, y:bulletDestination.y), withDuration: shipBulletDuration, andSoundFileName: nil)
+                        fireBullet(bullet: bulletLeft, toDestination: CGPoint(x: bulletDestination.x - (CGFloat(i) * frame.width) / 8, y:bulletDestination.y), withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
                     }
                 }
 
@@ -535,7 +499,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         
-        if bombs < maxInvaderBombs {
+        if bombs < gameState.maxInvaderBombs {
             var allInvaders = [SKNode]()
             
             enumerateChildNodes(withName: invaderName) { node, stop in
@@ -602,12 +566,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 adjustShipHealth(by: bomb.damage)
             }
             
-            if shipHealth <= 0.0 {
+            if gameState.shipHealth <= 0.0 {
                 contact.bodyA.node!.removeFromParent()
                 contact.bodyB.node!.removeFromParent()
             } else {
                 if let ship = childNode(withName: shipName) {
-                    ship.alpha = CGFloat(shipHealth)
+                    ship.alpha = CGFloat(gameState.shipHealth)
                     if contact.bodyA.node == ship {
                         contact.bodyB.node!.removeFromParent()
                     } else {
@@ -623,12 +587,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }else if let bomb = contact.bodyB.node as? BombSpriteNode{
                 adjustShieldStength(by: bomb.damage)
             }
-            if shieldStrength <= 0.0 {
+            if gameState.shieldStrength <= 0.0 {
                 contact.bodyA.node!.removeFromParent()
                 contact.bodyB.node!.removeFromParent()
             } else {
                 if let shield = childNode(withName: shieldName) {
-                    shield.alpha = CGFloat(shieldStrength)
+                    shield.alpha = CGFloat(gameState.shieldStrength)
                     if contact.bodyA.node == shield {
                         contact.bodyB.node!.removeFromParent()
                     } else {
@@ -645,7 +609,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             adjustScore(by: 100)
         }
         
-        if shipBulletsKnockOutBombs{
+        if gameState.shipBulletsKnockOutBombs{
             // check if any contacts are between ship bullets and bombs
             if nodeBitMasks.contains(ContactMasks.shipBullet) && nodeBitMasks.contains(ContactMasks.bomb){
                 if let bomb = contact.bodyA.node as? BombSpriteNode{

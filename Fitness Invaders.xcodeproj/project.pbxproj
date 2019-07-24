@@ -182,6 +182,7 @@
 				7376BAF922E5B7E100E14CB1 /* model */,
 				736CFC5322B3B9430071EA3B /* AppDelegate.swift */,
 				736CFC5922B3B9430071EA3B /* GameScene.swift */,
+				730BE66622E8BA8B00B0C6D5 /* GameState.swift */,
 				736CFC5D22B3B9430071EA3B /* Main.storyboard */,
 				736CFC6022B3B9440071EA3B /* Assets.xcassets */,
 				736CFC6222B3B9440071EA3B /* LaunchScreen.storyboard */,
@@ -218,7 +219,6 @@
 			children = (
 				7376BAFA22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld */,
 				73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */,
-				730BE66622E8BA8B00B0C6D5 /* GameState.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
