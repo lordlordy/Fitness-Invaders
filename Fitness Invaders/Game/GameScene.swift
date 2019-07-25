@@ -16,7 +16,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var tapQueue = [Int]()
     private var tapDirection: CGPoint = CGPoint(x:0,y:0)
     private let motionManager = CMMotionManager()
-
+    private let fontName = "Menlo"
+    
     enum InvaderMovementDirection {
         case right
         case left
@@ -82,17 +83,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK:- Content Creation
     
     func createContent() {
-        physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        print(frame)
-        physicsBody?.friction = 0.0
-        
-        physicsBody!.categoryBitMask = ContactMasks.sceneEdge
+
+        setUpBoundaryForBombAndBulletRemoval()
+        setUpWalls()
         setupInvaders()
         setupShip()
         setupHud()
     }
     
-    func setupInvaders() {
+    private func setUpBoundaryForBombAndBulletRemoval(){
+        // set up a node to represent just outside visible frame. We can then detect contacts with this
+        // to allow removal of bombs etc...
+        let justOutSideScreen = SKPhysicsBody(edgeLoopFrom: CGRect(x: -3, y: -3, width: frame.width + 6, height: frame.height + 6))
+        let screenEdge = SKNode()
+        screenEdge.physicsBody = justOutSideScreen
+        screenEdge.physicsBody?.categoryBitMask = ContactMasks.sceneEdge
+        addChild(screenEdge)
+    }
+    
+    private func setUpWalls(){
+        let bottomWall = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: 1)
+        let bottom = SKNode()
+        bottom.physicsBody = SKPhysicsBody(edgeLoopFrom: bottomWall)
+        bottom.physicsBody?.categoryBitMask = ContactMasks.bottomWall
+        bottom.physicsBody?.restitution = 1.0
+        bottom.physicsBody?.friction = 0.0
+        addChild(bottom)
+        
+        let topWall = CGRect(x: frame.origin.x, y: frame.origin.y + frame.size.height - 1, width: frame.size.width, height: 1)
+        let top = SKNode()
+        top.physicsBody = SKPhysicsBody(edgeLoopFrom: topWall)
+        top.physicsBody?.categoryBitMask = ContactMasks.topWall
+        top.physicsBody?.restitution = 1.0
+        top.physicsBody?.friction = 0.0
+        addChild(top)
+        
+        let leftWall = CGRect(x: frame.origin.x, y: frame.origin.y, width: 1, height: frame.height)
+        let left = SKNode()
+        left.physicsBody = SKPhysicsBody(edgeLoopFrom: leftWall)
+        left.physicsBody?.categoryBitMask = ContactMasks.leftWall
+        left.physicsBody?.restitution = 1.0
+        left.physicsBody?.friction = 0.0
+        addChild(left)
+        
+        let rightWall = CGRect(x: frame.origin.x + frame.width - 1 , y: frame.origin.y, width: 1.0, height: frame.height)
+        let right = SKNode()
+        right.physicsBody = SKPhysicsBody(edgeLoopFrom: rightWall)
+        right.physicsBody?.categoryBitMask = ContactMasks.rightWall
+        right.physicsBody?.restitution = 1.0
+        right.physicsBody?.friction = 0.0
+        addChild(right)
+        
+    }
+    
+    private func setupInvaders() {
         let invadersPerRow = min(gameState.invaderColCount, Int(frame.width / (invaderSize.width + invaderGridSpace.width)) - 1)
         var numberOfRows = gameState.invaderRowCount
         let baseOrigin = CGPoint(x: size.width / 3, y: size.height * 0.62)
@@ -109,7 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             var invaderPosition = CGPoint(x: baseOrigin.x, y: invaderPositionY)
             for _ in 0..<invadersPerRow {
-                let invader = InvaderSpriteNode(imageNamed: "dumbbell.png", timeBetweenBombs: gameState.timePerBomb, chanceOfBomb: gameState.probabilityOfBomb)
+                let invader = InvaderSpriteNode(imageNamed: "dumbbell.png", timeBetweenBombs: gameState.bombReloadTime, chanceOfBomb: gameState.probabilityOfBomb)
 
                 invader.position = invaderPosition
                 
@@ -138,7 +182,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func setupHud() {
-        let scoreLabel = SKLabelNode(fontNamed: "Courier")
+        let levelLabel = SKLabelNode(fontNamed: fontName)
+        levelLabel.name = NodeNames.levelHUDName
+        levelLabel.fontSize = scoreFontSize
+        levelLabel.fontColor = SKColor.black
+        levelLabel.text = String(format: "Level: %02u", gameState.level)
+        levelLabel.position = CGPoint(x: frame.width / 2, y: frame.height - 50.0)
+        addChild(levelLabel)
+        
+        
+        let scoreLabel = SKLabelNode(fontNamed: fontName)
         scoreLabel.name = NodeNames.scoreHUDName
         scoreLabel.fontSize = scoreFontSize
         
@@ -151,7 +204,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         addChild(scoreLabel)
         
-        let healthLabel = SKLabelNode(fontNamed: "Courier")
+        let healthLabel = SKLabelNode(fontNamed: fontName)
         healthLabel.name = NodeNames.healthHUDName
         healthLabel.fontSize = scoreFontSize
         
@@ -163,7 +216,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         )
         addChild(healthLabel)
         
-        let shieldLabel = SKLabelNode(fontNamed: "Courier")
+        let shieldLabel = SKLabelNode(fontNamed: fontName)
         shieldLabel.name = NodeNames.shieldHUDName
         shieldLabel.fontSize = scoreFontSize
         
@@ -243,6 +296,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             levelEnding = true
             motionManager.stopAccelerometerUpdates()
             let nextLevelScene: NextLevelScene = NextLevelScene(size: size)
+            self.gameState.advanceALevel()
             nextLevelScene.previousState = self.gameState
             view?.presentScene(nextLevelScene, transition: SKTransition.doorsOpenHorizontal(withDuration: 1.0))
         }
@@ -362,50 +416,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 
     func makeBomb() -> SKSpriteNode {
-        if Double.random(in: 0...1) <= gameState.chanceOfBiggerBomb{
-            return BombSpriteNode(imageNamed: "biggerBomb.png", damage: gameState.biggerBombDamage, strength: gameState.biggerBombHitsToKill, mass: BombMass.Bigger)
-        }else if Double.random(in: 0...1) <= gameState.chanceOfBiggerBomb{
-            return BombSpriteNode(imageNamed: "biggestBomb.png", damage: gameState.biggestBombDamage, strength: gameState.biggestBombHitsToKill, mass: BombMass.Biggest)
+        let r: Double = Double.random(in: 0...1)
+        if r <= gameState.probabilityStandard{
+            return BombSpriteNode(imageNamed: "standardBomb", damage: gameState.standardBombDamage, strength: gameState.standardBombHitsToKill, mass: BombMass.Standard)
+        }else if r <= gameState.probabilityStandard + gameState.probabilityBigger{
+            return BombSpriteNode(imageNamed: "biggerBomb", damage: gameState.biggerBombDamage , strength: gameState.biggerBombHitsToKill, mass: BombMass.Bigger)
         }else{
-            return BombSpriteNode(imageNamed: "StandardBomb", damage: gameState.standardBombDamage, strength: gameState.standardBombHitsToKill, mass: BombMass.Standard)
+            return BombSpriteNode(imageNamed: "biggestBomb", damage: gameState.biggestBombDamage, strength: gameState.biggestBombHitsToKill, mass: BombMass.Biggest)
         }
     }
 
     
     // MARK:- Firing / Dropping
     
-    func fireBullet(bullet: SKNode, toDestination destination: CGPoint, withDuration duration: CFTimeInterval, andSoundFileName soundName: String?) {
-        
-
-        
-//        let bulletAction = SKAction.sequence([
-//            SKAction.move(to: destination, duration: duration),
-//            SKAction.wait(forDuration: 3.0 / 60.0),
-//            SKAction.removeFromParent()
-//            ])
-//
-//        if let sound = soundName{
-//            let soundAction = SKAction.playSoundFileNamed(sound, waitForCompletion: true)
-//            bullet.run(SKAction.group([bulletAction, soundAction]))
-//        }else{
-//            bullet.run(SKAction.group([bulletAction]))
-//        }
+    func fireBullet(bullet: SKNode, directionRadians direction: Double, andSoundFileName soundName: String?) {
         
         addChild(bullet)
-        let force = SKAction.applyForce(CGVector(dx: 0, dy: gameState.bulletForce) , duration: 0.1)
+        let sign = abs(direction) / direction
+        let force = SKAction.applyForce(CGVector(dx: sign * gameState.bulletForce * cos(direction), dy:  sign * gameState.bulletForce * sin(direction)) , duration: gameState.bulletForceDuration)
         bullet.run(force)
     }
     
     func fireShipBullets() {
-        
-        // TO DO
-        // Shouldn't need to do this. Instead should detect contact between bullet and screen edge and then
-        // remove
-        let existingBullet = childNode(withName: NodeNames.shipBulletName)
-        // remove bullets that have left the screen
-        if existingBullet != nil && existingBullet!.parent != nil && !intersects(existingBullet!){
-            existingBullet?.removeFromParent()
-        }
         
         let currentBullets = children.filter({$0.name == NodeNames.shipBulletName}).count
         
@@ -417,29 +449,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     x: ship.position.x,
                     y: ship.position.y + ship.frame.size.height - shipBulletSize.height / 2
                 )
-                let bulletDestination = gameState.directionalBullets ? extendTapLocationToBounds(from: bulletStartPosition) : CGPoint(x: ship.position.x, y: frame.size.height + shipBulletSize.height / 2)
+                var bulletDirection: Double = Double.pi / 2.0
+                
+                if gameState.directionalBullets{
+                    let dx = tapDirection.x - bulletStartPosition.x
+                    let dy = tapDirection.y - bulletStartPosition.y
+                    if dx != 0.0{
+                        bulletDirection = Double(atan(dy / dx))
+                    }
+                }
                 
                 if middle == 1{
-                    let bullet = BulletSpriteNode()
+                    let bullet = BulletSpriteNode(wallBitMask: gameState.wallsToBounceOff)
                     bullet.position = bulletStartPosition
-    //                fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: shipBulletDuration, andSoundFileName: "ShipBullet.wav")
-                    fireBullet(bullet: bullet, toDestination: bulletDestination, withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
+                    fireBullet(bullet: bullet, directionRadians: bulletDirection, andSoundFileName: nil)
                 }
                 
                 if pairs > 0{
                     for i in 1...pairs{
-                        let bulletRight = BulletSpriteNode()
+                        let bulletRight = BulletSpriteNode(wallBitMask: gameState.wallsToBounceOff)
                         bulletRight.position = CGPoint(
                             x: ship.position.x,
                             y: ship.position.y + ship.frame.size.height - bulletRight.frame.size.height / 2
                         )
-                        fireBullet(bullet: bulletRight, toDestination: CGPoint(x: bulletDestination.x + (CGFloat(i) * frame.width) / gameState.bulletSpread, y:bulletDestination.y), withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
-                        let bulletLeft = BulletSpriteNode()
+                        fireBullet(bullet: bulletRight, directionRadians: bulletDirection + Double(i) * gameState.bulletRadians,  andSoundFileName: nil)
+                        let bulletLeft = BulletSpriteNode(wallBitMask: gameState.wallsToBounceOff)
                         bulletLeft.position = CGPoint(
                             x: ship.position.x,
                             y: ship.position.y + ship.frame.size.height - bulletLeft.frame.size.height / 2
                         )
-                        fireBullet(bullet: bulletLeft, toDestination: CGPoint(x: bulletDestination.x - (CGFloat(i) * frame.width) / gameState.bulletSpread, y:bulletDestination.y), withDuration: gameState.shipBulletDuration, andSoundFileName: nil)
+                        fireBullet(bullet: bulletLeft, directionRadians: bulletDirection - Double(i) * gameState.bulletRadians, andSoundFileName: nil)
                     }
                 }
 
@@ -475,14 +514,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func dropInvaderBombs(forUpdate currentTime: CFTimeInterval) {
         
-        let existingBomb = childNode(withName: NodeNames.bomb)
         let bombs = children.filter({$0.name == NodeNames.bomb}).count
         
-        // this removes the bomb if it is outside the frame
-        if (existingBomb != nil) && (existingBomb?.parent != nil) && !intersects(existingBomb!){
-            existingBomb?.removeFromParent()
-        }
-        
+
         if bombs < gameState.maxInvaderBombs {
             var allInvaders = [SKNode]()
             
@@ -546,7 +580,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         let nodeBitMasks = [contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask]
-        print(nodeBitMasks)
         if nodeBitMasks.contains(ContactMasks.ship) && nodeBitMasks.contains(ContactMasks.bomb){
             // handle ship being hit by invader bomb
 
@@ -599,13 +632,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             adjustScore(by: 100)
         }else if nodeBitMasks.contains(ContactMasks.sceneEdge) && nodeBitMasks.contains(ContactMasks.shipBullet){
             // bullet hits edge of sreen - remov it
-            print("bullet contacts edge:")
             if let n = contact.bodyA.node as? BulletSpriteNode{
                 n.removeFromParent()
             }else if let n = contact.bodyB.node as? BulletSpriteNode{
                 n.removeFromParent()
             }
-            
+        }else if nodeBitMasks.contains(ContactMasks.sceneEdge) && nodeBitMasks.contains(ContactMasks.bomb){
+            if let n = contact.bodyA.node as? BombSpriteNode{
+                n.removeFromParent()
+            }else if let n = contact.bodyB.node as? BombSpriteNode{
+                n.removeFromParent()
+            }
         }
         
         if gameState.shipBulletsKnockOutBombs{

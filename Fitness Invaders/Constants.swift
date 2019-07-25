@@ -20,6 +20,7 @@ struct NodeNames{
     static let scoreHUDName = "scoreHUD"
     static let healthHUDName = "healthHUD"
     static let shieldHUDName = "shieldHUD"
+    static let levelHUDName = "levelHUD"
     static let shipBulletName = "shipBullet"
 }
 
@@ -36,5 +37,9 @@ struct ContactMasks{
     static let ship: UInt32 = 0x1 << 3
     static let bomb: UInt32 = 0x1 << 4
     static let shield: UInt32 = 0x1 << 5
-    
+    static let leftWall: UInt32 = 0x1 << 6
+    static let rightWall: UInt32 = 0x1 << 7
+    static let topWall: UInt32 = 0x1 << 8
+    static let bottomWall: UInt32 = 0x1 << 9
+
 }
