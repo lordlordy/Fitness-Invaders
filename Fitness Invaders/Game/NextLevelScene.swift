@@ -15,6 +15,7 @@ class NextLevelScene: SKScene {
     // Private GameScene Properties
     
     var contentCreated = false
+    var previousState: GameState?
     
     // Object Lifecycle Management
     
@@ -69,6 +70,9 @@ class NextLevelScene: SKScene {
         
         let gameScene = GameScene(size: self.size, gameState: nil)
         gameScene.scaleMode = .aspectFill
+        if let state = previousState{
+            gameScene.gameState = state
+        }
         
         self.view?.presentScene(gameScene, transition: SKTransition.doorsCloseHorizontal(withDuration: 1.0))
         
