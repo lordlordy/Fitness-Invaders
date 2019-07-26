@@ -187,7 +187,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelLabel.fontSize = scoreFontSize
         levelLabel.fontColor = SKColor.black
         levelLabel.text = String(format: "Level: %02u", gameState.level)
-        levelLabel.position = CGPoint(x: frame.width / 2, y: frame.height - 50.0)
+        levelLabel.position = CGPoint(x: frame.width / 2, y: frame.height -  50.0)
         addChild(levelLabel)
         
         
