@@ -40,6 +40,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var gameEnded: Bool = false
     private var levelEnded: Bool = false
 
+    // variables to manage moving invaders down more quickly if none are visible
+    private var enoughInvadersOnScreen: Bool = true
+    private var minInvadersOnScreen: Int = 0
+    
     var contentCreated = false
     var invaderMovementDirection: InvaderMovementDirection = .right
     var timeOfLastMove: CFTimeInterval = 0.0
@@ -56,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameState = gs
         }else{
             gameState = GameState()
+//            gameState.level = 35
         }
         super.init(size: size)
         self.backgroundColor = MAIN_BLUE
@@ -139,7 +144,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func setupInvaders() {
         let invadersPerRow = min(gameState.invaderColCount, Int(frame.width / (invaderSize.width + invaderGridSpace.width)) - 1)
         var numberOfRows = gameState.invaderRowCount
-        let baseOrigin = CGPoint(x: size.width / 3, y: size.height * 0.62)
+        let baseOrigin = CGPoint(x: size.width / 3, y: gameState.invadersStartHeight)
         
         // need to adjust number of rows if we can't get appropriate number per row
         if invadersPerRow < gameState.invaderColCount{
@@ -166,6 +171,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
         }
+        setInvaderCount(to: invadersPerRow * numberOfRows)
     }
     
     func setupShip() {
@@ -189,6 +195,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelLabel.text = String(format: "Level: %02u", gameState.level)
         levelLabel.position = CGPoint(x: frame.width / 2, y: frame.height -  50.0)
         addChild(levelLabel)
+        
+        let invaderLabel = SKLabelNode(fontNamed: fontName)
+        invaderLabel.name = NodeNames.invaderCountHUDName
+        invaderLabel.fontSize = scoreFontSize
+        invaderLabel.fontColor = SKColor.black
+        invaderLabel.text = String(format: "Invaders: %04u", 0)
+        invaderLabel.position = CGPoint(x: frame.width / 2, y: frame.height -  70.0)
+        addChild(invaderLabel)
         
         
         let scoreLabel = SKLabelNode(fontNamed: fontName)
@@ -231,6 +245,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // MARK:- Scoring
     
+    func setInvaderCount(to count: Int){
+        if let node = childNode(withName: NodeNames.invaderCountHUDName) as? SKLabelNode{
+            node.text = String(format: "Invaders: %04u", count)
+        }
+    }
     
     func adjustScore(by points: Int) {
         gameState.score += points
@@ -312,7 +331,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    // MARK:-
+    // MARK:- handling updates
+    
+    func processUserTaps(forUpdate currentTime: CFTimeInterval) {
+        for tapCount in tapQueue {
+            if tapCount == 1 {
+                fireShipBullets()
+            }
+            tapQueue.remove(at: 0)
+        }
+    }
     
     override func update(_ currentTime: TimeInterval) {
         if hasLevelEnded() {
@@ -339,13 +367,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func moveInvaders(forUpdate currentTime: CFTimeInterval) {
-        if (currentTime - timeOfLastMove < gameState.timePerMove) {
+        if enoughInvadersOnScreen && (currentTime - timeOfLastMove < gameState.timePerMove) {
             return
         }
         
         determineInvaderMovementDirection()
+        var invadersOnScreenCount: Int = 0
+        var invaderCount: Int = 0
         
         enumerateChildNodes(withName: NodeNames.invaderName) { node, stop in
+
             switch self.invaderMovementDirection {
             case .right:
                 node.position = CGPoint(x: node.position.x + 10, y: node.position.y)
@@ -356,9 +387,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case .none:
                 break
             }
-            
-            self.timeOfLastMove = currentTime
+            invaderCount += 1
+            if node.position.y <= self.frame.height{
+                invadersOnScreenCount += 1
+            }
         }
+        if invaderCount >= gameState.minInvadersOnScreen{
+            enoughInvadersOnScreen = invadersOnScreenCount > gameState.minInvadersOnScreen
+        }else{
+            // below state minimum ... so move to using local minimum and keep halving
+            if minInvadersOnScreen == 0{
+                minInvadersOnScreen = gameState.minInvadersOnScreen
+            }
+            if invaderCount < minInvadersOnScreen{
+                minInvadersOnScreen = max(1, Int(invaderCount / 2))
+            }
+            enoughInvadersOnScreen = invadersOnScreenCount > minInvadersOnScreen
+        }
+        setInvaderCount(to: invaderCount)
+        self.timeOfLastMove = currentTime
     }
     
     func processUserMotion(forUpdate currentTime: CFTimeInterval) {
@@ -514,6 +561,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func dropInvaderBombs(forUpdate currentTime: CFTimeInterval) {
         
+        if currentTime - timeOfLastBomb < gameState.timeBetweenBombs{
+            return
+        }
+        timeOfLastBomb = currentTime
         let bombs = children.filter({$0.name == NodeNames.bomb}).count
         
 
@@ -529,7 +580,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let invader = allInvaders[allInvadersIndex]
                 
                 if let i = invader as? InvaderSpriteNode{
-                    if i.canDropBomb(atTime: currentTime){
+                    if allInvaders.count == 1 || i.canDropBomb(atTime: currentTime){
                         let bomb = makeBomb()
                         bomb.position = CGPoint(
                             x: invader.position.x,
@@ -541,17 +592,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
-    // MARK:-
 
-    func processUserTaps(forUpdate currentTime: CFTimeInterval) {
-        for tapCount in tapQueue {
-            if tapCount == 1 {
-                    fireShipBullets()
-            }
-            tapQueue.remove(at: 0)
-        }
-    }
     
     // MARK:- Handling Contacts
     
