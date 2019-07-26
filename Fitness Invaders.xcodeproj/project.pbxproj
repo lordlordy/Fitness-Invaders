@@ -3,10 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730BE65922E8998500B0C6D5 /* BombSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */; };
+		730BE66522E8BA1E00B0C6D5 /* NextLevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */; };
+		730BE66722E8BA8B00B0C6D5 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66622E8BA8B00B0C6D5 /* GameState.swift */; };
+		730BE66B22E9BA5900B0C6D5 /* InvaderSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66A22E9BA5900B0C6D5 /* InvaderSpriteNode.swift */; };
+		730BE66F22E9C26200B0C6D5 /* BulletSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE66E22E9C26200B0C6D5 /* BulletSpriteNode.swift */; };
+		730BE67122E9C32300B0C6D5 /* ShieldSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE67022E9C32300B0C6D5 /* ShieldSpriteNode.swift */; };
+		730BE67322E9C42200B0C6D5 /* ShipSpriteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730BE67222E9C42200B0C6D5 /* ShipSpriteNode.swift */; };
 		736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5322B3B9430071EA3B /* AppDelegate.swift */; };
 		736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5922B3B9430071EA3B /* GameScene.swift */; };
 		736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC5B22B3B9430071EA3B /* GameViewController.swift */; };
@@ -16,7 +23,16 @@
 		736CFC6F22B3B9440071EA3B /* Fitness_InvadersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC6E22B3B9440071EA3B /* Fitness_InvadersTests.swift */; };
 		736CFC7A22B3B9440071EA3B /* Fitness_InvadersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736CFC7922B3B9440071EA3B /* Fitness_InvadersUITests.swift */; };
 		737373BE22B52FAF00698DD4 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737373BD22B52FAF00698DD4 /* GameOverScene.swift */; };
-		73F1985B22B9814500DD9E26 /* dumbbell.png in Resources */ = {isa = PBXBuildFile; fileRef = 73F1985A22B9814500DD9E26 /* dumbbell.png */; };
+		7376BAFC22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7376BAFA22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld */; };
+		7376BAFE22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */; };
+		7376BAFF22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */; };
+		7376BB0022E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */; };
+		7376BB0322E5BC6100E14CB1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7376BB0222E5BC6100E14CB1 /* MainViewController.swift */; };
+		73AA134C22E7389800BB14BC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AA134B22E7389800BB14BC /* Constants.swift */; };
+		73DFC0FE22E5CA62002EE8AF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */; };
+		96048490B7D663F1AAAF244F /* Pods_Fitness_Invaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2F0CB2347BCB9FF9281346 /* Pods_Fitness_Invaders.framework */; };
+		A924CFB1730652CC1B37D8B9 /* Pods_Fitness_InvadersTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68CF6546A1C043E32DFB2F6C /* Pods_Fitness_InvadersTests.framework */; };
+		FF5AB608FAFE385842C41D80 /* Pods_Fitness_InvadersUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA47B4117A3291EF492C6309 /* Pods_Fitness_InvadersUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +53,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1343F9B3A87214AD8721BBE3 /* Pods-Fitness Invaders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness Invaders.debug.xcconfig"; path = "Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders.debug.xcconfig"; sourceTree = "<group>"; };
+		148A03C2EE149CCD5902C3C4 /* Pods-Fitness Invaders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness Invaders.release.xcconfig"; path = "Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders.release.xcconfig"; sourceTree = "<group>"; };
+		4BDCDDEF7A357A49A99B55D7 /* Pods-Fitness InvadersTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness InvadersTests.release.xcconfig"; path = "Target Support Files/Pods-Fitness InvadersTests/Pods-Fitness InvadersTests.release.xcconfig"; sourceTree = "<group>"; };
+		5B2F0CB2347BCB9FF9281346 /* Pods_Fitness_Invaders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness_Invaders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		68CF6546A1C043E32DFB2F6C /* Pods_Fitness_InvadersTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness_InvadersTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BombSpriteNode.swift; sourceTree = "<group>"; };
+		730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextLevelScene.swift; sourceTree = "<group>"; };
+		730BE66622E8BA8B00B0C6D5 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		730BE66A22E9BA5900B0C6D5 /* InvaderSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvaderSpriteNode.swift; sourceTree = "<group>"; };
+		730BE66E22E9C26200B0C6D5 /* BulletSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletSpriteNode.swift; sourceTree = "<group>"; };
+		730BE67022E9C32300B0C6D5 /* ShieldSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShieldSpriteNode.swift; sourceTree = "<group>"; };
+		730BE67222E9C42200B0C6D5 /* ShipSpriteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShipSpriteNode.swift; sourceTree = "<group>"; };
 		736CFC5022B3B9430071EA3B /* Fitness Invaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Fitness Invaders.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		736CFC5322B3B9430071EA3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		736CFC5922B3B9430071EA3B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -52,7 +80,15 @@
 		736CFC7922B3B9440071EA3B /* Fitness_InvadersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fitness_InvadersUITests.swift; sourceTree = "<group>"; };
 		736CFC7B22B3B9440071EA3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		737373BD22B52FAF00698DD4 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
-		73F1985A22B9814500DD9E26 /* dumbbell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dumbbell.png; path = "../../../../Documents/MSc/IXN Project/icons/dumbbell.png"; sourceTree = "<group>"; };
+		7376BAFB22E5B80100E14CB1 /* FitnessInvaders.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FitnessInvaders.xcdatamodel; sourceTree = "<group>"; };
+		7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7376BB0222E5BC6100E14CB1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		73AA134B22E7389800BB14BC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		7C9FE98583433DE2D1CB0254 /* Pods-Fitness InvadersUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness InvadersUITests.release.xcconfig"; path = "Target Support Files/Pods-Fitness InvadersUITests/Pods-Fitness InvadersUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B3FCCF349702D9BC87EF3F38 /* Pods-Fitness InvadersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness InvadersTests.debug.xcconfig"; path = "Target Support Files/Pods-Fitness InvadersTests/Pods-Fitness InvadersTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CA47B4117A3291EF492C6309 /* Pods_Fitness_InvadersUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitness_InvadersUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F7C945691626A9E82C427EAC /* Pods-Fitness InvadersUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitness InvadersUITests.debug.xcconfig"; path = "Target Support Files/Pods-Fitness InvadersUITests/Pods-Fitness InvadersUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96048490B7D663F1AAAF244F /* Pods_Fitness_Invaders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A924CFB1730652CC1B37D8B9 /* Pods_Fitness_InvadersTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,12 +112,59 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF5AB608FAFE385842C41D80 /* Pods_Fitness_InvadersUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		044D8EC86D349BF95C299481 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B2F0CB2347BCB9FF9281346 /* Pods_Fitness_Invaders.framework */,
+				68CF6546A1C043E32DFB2F6C /* Pods_Fitness_InvadersTests.framework */,
+				CA47B4117A3291EF492C6309 /* Pods_Fitness_InvadersUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		25690206BD88DED29A3C58F0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1343F9B3A87214AD8721BBE3 /* Pods-Fitness Invaders.debug.xcconfig */,
+				148A03C2EE149CCD5902C3C4 /* Pods-Fitness Invaders.release.xcconfig */,
+				B3FCCF349702D9BC87EF3F38 /* Pods-Fitness InvadersTests.debug.xcconfig */,
+				4BDCDDEF7A357A49A99B55D7 /* Pods-Fitness InvadersTests.release.xcconfig */,
+				F7C945691626A9E82C427EAC /* Pods-Fitness InvadersUITests.debug.xcconfig */,
+				7C9FE98583433DE2D1CB0254 /* Pods-Fitness InvadersUITests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		730BE66C22E9C14700B0C6D5 /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				730BE66A22E9BA5900B0C6D5 /* InvaderSpriteNode.swift */,
+				730BE65822E8998500B0C6D5 /* BombSpriteNode.swift */,
+				730BE66E22E9C26200B0C6D5 /* BulletSpriteNode.swift */,
+				730BE67022E9C32300B0C6D5 /* ShieldSpriteNode.swift */,
+				730BE67222E9C42200B0C6D5 /* ShipSpriteNode.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		730BE66D22E9C23500B0C6D5 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				736CFC5922B3B9430071EA3B /* GameScene.swift */,
+				730BE66622E8BA8B00B0C6D5 /* GameState.swift */,
+				737373BD22B52FAF00698DD4 /* GameOverScene.swift */,
+				730BE66422E8BA1E00B0C6D5 /* NextLevelScene.swift */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
 		736CFC4722B3B9430071EA3B = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +173,8 @@
 				736CFC6D22B3B9440071EA3B /* Fitness InvadersTests */,
 				736CFC7822B3B9440071EA3B /* Fitness InvadersUITests */,
 				736CFC5122B3B9430071EA3B /* Products */,
+				25690206BD88DED29A3C58F0 /* Pods */,
+				044D8EC86D349BF95C299481 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,14 +191,17 @@
 		736CFC5222B3B9430071EA3B /* Fitness Invaders */ = {
 			isa = PBXGroup;
 			children = (
+				730BE66D22E9C23500B0C6D5 /* Game */,
+				730BE66C22E9C14700B0C6D5 /* Nodes */,
+				7376BB0122E5BC4B00E14CB1 /* view controllers */,
+				7376BAF922E5B7E100E14CB1 /* model */,
 				736CFC5322B3B9430071EA3B /* AppDelegate.swift */,
-				736CFC5922B3B9430071EA3B /* GameScene.swift */,
-				736CFC5B22B3B9430071EA3B /* GameViewController.swift */,
 				736CFC5D22B3B9430071EA3B /* Main.storyboard */,
 				736CFC6022B3B9440071EA3B /* Assets.xcassets */,
 				736CFC6222B3B9440071EA3B /* LaunchScreen.storyboard */,
 				736CFC6522B3B9440071EA3B /* Info.plist */,
-				737373BD22B52FAF00698DD4 /* GameOverScene.swift */,
+				7376BAFD22E5BA2A00E14CB1 /* GoogleService-Info.plist */,
+				73AA134B22E7389800BB14BC /* Constants.swift */,
 			);
 			path = "Fitness Invaders";
 			sourceTree = "<group>";
@@ -134,10 +224,27 @@
 			path = "Fitness InvadersUITests";
 			sourceTree = "<group>";
 		};
+		7376BAF922E5B7E100E14CB1 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				7376BAFA22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld */,
+				73DFC0FD22E5CA62002EE8AF /* CoreDataStack.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		7376BB0122E5BC4B00E14CB1 /* view controllers */ = {
+			isa = PBXGroup;
+			children = (
+				736CFC5B22B3B9430071EA3B /* GameViewController.swift */,
+				7376BB0222E5BC6100E14CB1 /* MainViewController.swift */,
+			);
+			path = "view controllers";
+			sourceTree = "<group>";
+		};
 		73F1985722B97FA700DD9E26 /* sprite images */ = {
 			isa = PBXGroup;
 			children = (
-				73F1985A22B9814500DD9E26 /* dumbbell.png */,
 			);
 			path = "sprite images";
 			sourceTree = "<group>";
@@ -149,9 +256,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 736CFC7E22B3B9440071EA3B /* Build configuration list for PBXNativeTarget "Fitness Invaders" */;
 			buildPhases = (
+				6F9AD07A0F1282BB6FA86815 /* [CP] Check Pods Manifest.lock */,
 				736CFC4C22B3B9430071EA3B /* Sources */,
 				736CFC4D22B3B9430071EA3B /* Frameworks */,
 				736CFC4E22B3B9430071EA3B /* Resources */,
+				7D58B512E8E0C90C6A672C68 /* [CP] Embed Pods Frameworks */,
+				DD469FB4FF5DF96662152743 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -166,6 +276,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 736CFC8122B3B9440071EA3B /* Build configuration list for PBXNativeTarget "Fitness InvadersTests" */;
 			buildPhases = (
+				49FD7B87112D9BF49F8C773C /* [CP] Check Pods Manifest.lock */,
 				736CFC6622B3B9440071EA3B /* Sources */,
 				736CFC6722B3B9440071EA3B /* Frameworks */,
 				736CFC6822B3B9440071EA3B /* Resources */,
@@ -184,6 +295,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 736CFC8422B3B9440071EA3B /* Build configuration list for PBXNativeTarget "Fitness InvadersUITests" */;
 			buildPhases = (
+				2ED08304B677EA902F3C4B34 /* [CP] Check Pods Manifest.lock */,
 				736CFC7122B3B9440071EA3B /* Sources */,
 				736CFC7222B3B9440071EA3B /* Frameworks */,
 				736CFC7322B3B9440071EA3B /* Resources */,
@@ -246,8 +358,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7376BAFE22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */,
 				736CFC5F22B3B9430071EA3B /* Main.storyboard in Resources */,
-				73F1985B22B9814500DD9E26 /* dumbbell.png in Resources */,
 				736CFC6122B3B9440071EA3B /* Assets.xcassets in Resources */,
 				736CFC6422B3B9440071EA3B /* LaunchScreen.storyboard in Resources */,
 			);
@@ -257,6 +369,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7376BAFF22E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,20 +377,135 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7376BB0022E5BA2A00E14CB1 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2ED08304B677EA902F3C4B34 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fitness InvadersUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		49FD7B87112D9BF49F8C773C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fitness InvadersTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F9AD07A0F1282BB6FA86815 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fitness Invaders-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7D58B512E8E0C90C6A672C68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD469FB4FF5DF96662152743 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fitness Invaders/Pods-Fitness Invaders-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		736CFC4C22B3B9430071EA3B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				730BE66522E8BA1E00B0C6D5 /* NextLevelScene.swift in Sources */,
+				73DFC0FE22E5CA62002EE8AF /* CoreDataStack.swift in Sources */,
+				730BE65922E8998500B0C6D5 /* BombSpriteNode.swift in Sources */,
 				736CFC5A22B3B9430071EA3B /* GameScene.swift in Sources */,
 				736CFC5C22B3B9430071EA3B /* GameViewController.swift in Sources */,
 				737373BE22B52FAF00698DD4 /* GameOverScene.swift in Sources */,
+				7376BB0322E5BC6100E14CB1 /* MainViewController.swift in Sources */,
+				730BE67122E9C32300B0C6D5 /* ShieldSpriteNode.swift in Sources */,
+				7376BAFC22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld in Sources */,
+				730BE66F22E9C26200B0C6D5 /* BulletSpriteNode.swift in Sources */,
+				730BE66B22E9BA5900B0C6D5 /* InvaderSpriteNode.swift in Sources */,
 				736CFC5422B3B9430071EA3B /* AppDelegate.swift in Sources */,
+				73AA134C22E7389800BB14BC /* Constants.swift in Sources */,
+				730BE66722E8BA8B00B0C6D5 /* GameState.swift in Sources */,
+				730BE67322E9C42200B0C6D5 /* ShipSpriteNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,11 +678,13 @@
 		};
 		736CFC7F22B3B9440071EA3B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1343F9B3A87214AD8721BBE3 /* Pods-Fitness Invaders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,11 +698,13 @@
 		};
 		736CFC8022B3B9440071EA3B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 148A03C2EE149CCD5902C3C4 /* Pods-Fitness Invaders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = T58RJPYJ69;
 				INFOPLIST_FILE = "Fitness Invaders/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -486,6 +718,7 @@
 		};
 		736CFC8222B3B9440071EA3B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3FCCF349702D9BC87EF3F38 /* Pods-Fitness InvadersTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -506,6 +739,7 @@
 		};
 		736CFC8322B3B9440071EA3B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BDCDDEF7A357A49A99B55D7 /* Pods-Fitness InvadersTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -526,6 +760,7 @@
 		};
 		736CFC8522B3B9440071EA3B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F7C945691626A9E82C427EAC /* Pods-Fitness InvadersUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +780,7 @@
 		};
 		736CFC8622B3B9440071EA3B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C9FE98583433DE2D1CB0254 /* Pods-Fitness InvadersUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -602,6 +838,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7376BAFA22E5B80100E14CB1 /* FitnessInvaders.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7376BAFB22E5B80100E14CB1 /* FitnessInvaders.xcdatamodel */,
+			);
+			currentVersion = 7376BAFB22E5B80100E14CB1 /* FitnessInvaders.xcdatamodel */;
+			path = FitnessInvaders.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 736CFC4822B3B9430071EA3B /* Project object */;
 }
