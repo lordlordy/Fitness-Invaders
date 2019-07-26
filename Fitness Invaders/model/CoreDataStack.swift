@@ -49,9 +49,8 @@ class CoreDataStack{
             if pup.count > 0{
                 if let result = pup[0] as? PowerUp{
                     //for testing
-                    result.defence = 15
-                    result.attack = 100
-                    
+//                    result.defence = 15
+//                    result.attack = 100
                     return result
                 }
             }

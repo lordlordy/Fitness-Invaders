@@ -30,6 +30,7 @@ struct BombMass{
     static let Standard: CGFloat = 1
     static let Bigger: CGFloat = 2
     static let Biggest: CGFloat = 4
+    static let Ultimate: CGFloat = 10
 }
 
 struct ContactMasks{

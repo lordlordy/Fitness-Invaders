@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameState = gs
         }else{
             gameState = GameState(powerUp: CoreDataStack.shared.getPowerUp())
-//            gameState.level = 1000
+//            gameState.level = 30
         }
         super.init(size: size)
         self.backgroundColor = MAIN_BLUE
@@ -468,8 +468,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return BombSpriteNode(imageNamed: "standardBomb", damage: gameState.standardBombDamage, strength: gameState.standardBombHitsToKill, mass: BombMass.Standard)
         }else if r <= gameState.probabilityStandard + gameState.probabilityBigger{
             return BombSpriteNode(imageNamed: "biggerBomb", damage: gameState.biggerBombDamage , strength: gameState.biggerBombHitsToKill, mass: BombMass.Bigger)
-        }else{
+        }else if r <= gameState.probabilityStandard + gameState.probabilityBigger + gameState.probabilityBiggest{
             return BombSpriteNode(imageNamed: "biggestBomb", damage: gameState.biggestBombDamage, strength: gameState.biggestBombHitsToKill, mass: BombMass.Biggest)
+        }else{
+            return BombSpriteNode(imageNamed: "ultimateBomb", damage: gameState.ultimateBombDamage, strength: gameState.ultimateBombHitsToKill, mass: BombMass.Ultimate)
         }
     }
 

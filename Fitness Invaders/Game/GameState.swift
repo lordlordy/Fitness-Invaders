@@ -23,18 +23,22 @@ class GameState{
     var standardBombDamage: Float = -0.05
     var biggerBombDamage: Float = -0.1
     var biggestBombDamage: Float = -0.2
-    // How many bullet hits to remove the bomb
+    var ultimateBombDamage: Float = -1.0
+    // How many bullet hits to remove the bomb - probably should be moved out
     var standardBombHitsToKill: Int = 1
     var biggerBombHitsToKill: Int = 2
     var biggestBombHitsToKill: Int = 4
+    var ultimateBombHitsToKill: Int = 10
     // Used to decide what bombs are created.
-    var standardBombWeighting: Double {return 20 + Double(level)}
-    var biggerBombWeighting: Double {return 1 + Double(level)}
-    var biggestBombWeighting: Double {return 0.5 + Double(level) * 0.75}
-    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggerBombWeighting}
+    var standardBombWeighting: Double {return 50 + Double(level)}
+    var biggerBombWeighting: Double {return 30 + Double(level)}
+    var biggestBombWeighting: Double {return 10 + Double(level)}
+    var ultimateBombWeighting: Double {return 1 + Double(level)}
+    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggerBombWeighting + ultimateBombWeighting}
     var probabilityStandard: Double { return standardBombWeighting / totalWeights}
     var probabilityBigger: Double { return biggerBombWeighting / totalWeights }
     var probabilityBiggest: Double { return biggestBombWeighting / totalWeights }
+    var probabilityUltimate: Double { return ultimateBombWeighting / totalWeights }
     // Maximum bombs on screen at once
     var maxInvaderBombs: Int { return 1 + level/2}
     // amount of time between looking to create a bomb
