@@ -15,7 +15,7 @@ class NextLevelScene: SKScene {
     // Private GameScene Properties
     
     var contentCreated = false
-    var previousState: GameState?
+    var state: GameState?
     
     // Object Lifecycle Management
     
@@ -31,19 +31,35 @@ class NextLevelScene: SKScene {
     
     func createContent() {
         
-        let gameOverLabel = SKLabelNode(fontNamed: "Courier")
-        gameOverLabel.fontSize = 50
-        gameOverLabel.fontColor = SKColor.white
-        gameOverLabel.text = "On to Next Level!"
-        gameOverLabel.position = CGPoint(x: self.size.width/2, y: 2.0 / 3.0 * self.size.height);
+        let nextLevelLabel = SKLabelNode(fontNamed: "Menlo")
+        nextLevelLabel.fontSize = 30
+        nextLevelLabel.fontColor = SKColor.white
+        nextLevelLabel.text = "L\(state!.level - 1) Completed"
+        nextLevelLabel.position = CGPoint(x: self.size.width/2, y: (2.0 / 3.0) * self.size.height);
         
-        self.addChild(gameOverLabel)
+        self.addChild(nextLevelLabel)
         
-        let tapLabel = SKLabelNode(fontNamed: "Courier")
-        tapLabel.fontSize = 25
+        let bonusLabel = SKLabelNode(fontNamed: "Menlo")
+        bonusLabel.fontSize = 20
+        bonusLabel.fontColor = SKColor.white
+        bonusLabel.text = "Level Bonus: \(state!.bonus)"
+        bonusLabel.position = CGPoint(x: self.size.width/2, y: nextLevelLabel.frame.origin.y - bonusLabel.frame.size.height);
+        
+        self.addChild(bonusLabel)
+        
+        let scoreLabel = SKLabelNode(fontNamed: "Menlo")
+        scoreLabel.fontSize = 25
+        scoreLabel.fontColor = SKColor.white
+        scoreLabel.text = "Score: \(state!.score)"
+        scoreLabel.position = CGPoint(x: self.size.width/2, y: bonusLabel.frame.origin.y - scoreLabel.frame.size.height - 20.0);
+        
+        self.addChild(scoreLabel)
+        
+        let tapLabel = SKLabelNode(fontNamed: "Menlo")
+        tapLabel.fontSize = 20
         tapLabel.fontColor = SKColor.white
-        tapLabel.text = "(Tap to Start Next Level)"
-        tapLabel.position = CGPoint(x: self.size.width/2, y: gameOverLabel.frame.origin.y - gameOverLabel.frame.size.height - 40);
+        tapLabel.text = "(Tap for Next Level)"
+        tapLabel.position = CGPoint(x: self.size.width/2, y: frame.origin.y + 40);
         
         self.addChild(tapLabel)
         
@@ -52,25 +68,11 @@ class NextLevelScene: SKScene {
         
     }
     
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)  {
-        
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)  {
         
         let gameScene = GameScene(size: self.size, gameState: nil)
         gameScene.scaleMode = .aspectFill
-        if let state = previousState{
+        if let state = state{
             gameScene.gameState = state
         }
         

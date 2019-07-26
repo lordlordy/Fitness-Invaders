@@ -29,7 +29,7 @@ class GameOverScene: SKScene {
     
     func createContent() {
         
-        let gameOverLabel = SKLabelNode(fontNamed: "Courier")
+        let gameOverLabel = SKLabelNode(fontNamed: "Menlo")
         gameOverLabel.fontSize = 50
         gameOverLabel.fontColor = SKColor.white
         gameOverLabel.text = "Game Over!"
@@ -37,7 +37,7 @@ class GameOverScene: SKScene {
         
         self.addChild(gameOverLabel)
         
-        let tapLabel = SKLabelNode(fontNamed: "Courier")
+        let tapLabel = SKLabelNode(fontNamed: "Menlo")
         tapLabel.fontSize = 25
         tapLabel.fontColor = SKColor.white
         tapLabel.text = "(Tap to Play Again)"
@@ -50,19 +50,6 @@ class GameOverScene: SKScene {
         
     }
     
-    
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)  {
-        
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-    }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)  {
         

@@ -21,6 +21,7 @@ struct NodeNames{
     static let healthHUDName = "healthHUD"
     static let shieldHUDName = "shieldHUD"
     static let levelHUDName = "levelHUD"
+    static let invaderCountHUDName = "invaderCountHUD"
     static let shipBulletName = "shipBullet"
 }
 
