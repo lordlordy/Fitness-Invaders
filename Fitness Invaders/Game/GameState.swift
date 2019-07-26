@@ -40,7 +40,7 @@ class GameState{
     // amount of time between looking to create a bomb
     var timeBetweenBombs: CFTimeInterval { return 2.0 - 2.0 * Double(level) / Double(level + 1)}
     // speed of the invaders.
-    var timePerMove: CFTimeInterval { return 0.1 + 2.0 / Double(level + 1)}
+    var timePerMove: CFTimeInterval { return 0.1 + 1.0 / Double(level + 1)}
     // how long each invader takes to reload a bomb
     var bombReloadTime: CFTimeInterval { return 0.1 + 200.0 / Double(level + 1)}
     // Probability that if an invader is selected to drop a bomb that it will drop it
@@ -64,9 +64,9 @@ class GameState{
     // higher is better
     var maxShipBullets = 500
     // number of bullets fired at once
-    var numberOfSimultaneousBullets = 11
+    var numberOfSimultaneousBullets = 21
     // force the ships gun applies to the bullet
-    var bulletForce: Double = 10.0
+    var bulletForce: Double = 20.0
     // length of time the force is applied for
     var bulletForceDuration: TimeInterval = 0.1
     // whether bullets go straight up or towards the screen tap
@@ -75,11 +75,12 @@ class GameState{
     var bulletRadians: Double = Double.pi / 100
     // which walls bullets bounce off. 0x0 means none then have bitmasks:
     // ContactMasks.leftWall, ContactMasks.rightWall, ContactMasks.topWall, ContactMasks.bottomWall
-    var wallsToBounceOff: UInt32 = ContactMasks.leftWall + ContactMasks.rightWall
+    var wallsToBounceOff: UInt32 = ContactMasks.leftWall + ContactMasks.rightWall + ContactMasks.topWall + ContactMasks.bottomWall
     
     // MARK:- Score Variables
     var score: Int = 0
     var level: Int = 0
+    var bonus: Int { return level * level * 100}
     
     private var userPowerUps: PowerUp = CoreDataStack.shared.getPowerUp()
     private var defence: Int16 { return userPowerUps.defence }
@@ -87,7 +88,7 @@ class GameState{
     
     func advanceALevel(){
         level += 1
-        score += level * 250
+        score += bonus
         shipHealth += healthIncrementBetweenLevels
         shieldStrength += shieldIncrementBetweenLevels
     }

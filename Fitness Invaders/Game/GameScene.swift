@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameState = gs
         }else{
             gameState = GameState()
-//            gameState.level = 35
+//            gameState.level = 1000
         }
         super.init(size: size)
         self.backgroundColor = MAIN_BLUE
@@ -82,8 +82,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         contactQueue.append(contact)
     }
-    
-
     
     // MARK:- Content Creation
     
@@ -182,6 +180,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if gameState.shieldStrength > 0.0{
             let shield = ShieldSpriteNode()
             shield.position = CGPoint(x: size.width / 2.0, y: shield.size.height / 2.0 + minInvaderBottomHeight + 20)
+            shield.alpha = CGFloat(gameState.shieldStrength)
             addChild(shield)
         }
     }
@@ -316,7 +315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             motionManager.stopAccelerometerUpdates()
             let nextLevelScene: NextLevelScene = NextLevelScene(size: size)
             self.gameState.advanceALevel()
-            nextLevelScene.previousState = self.gameState
+            nextLevelScene.state = self.gameState
             view?.presentScene(nextLevelScene, transition: SKTransition.doorsOpenHorizontal(withDuration: 1.0))
         }
     }
