@@ -48,6 +48,10 @@ class CoreDataStack{
             let pup = try modelPC.viewContext.fetch(fetch) as! [NSManagedObject]
             if pup.count > 0{
                 if let result = pup[0] as? PowerUp{
+                    //for testing
+                    result.defence = 15
+                    result.attack = 100
+                    
                     return result
                 }
             }
@@ -59,5 +63,7 @@ class CoreDataStack{
         let pup = NSEntityDescription.insertNewObject(forEntityName: "PowerUp", into: modelPC.viewContext)
         return pup as! PowerUp
     }
+    
+
     
 }

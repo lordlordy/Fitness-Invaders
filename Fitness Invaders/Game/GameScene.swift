@@ -59,7 +59,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let gs = state{
             gameState = gs
         }else{
-            gameState = GameState()
+            gameState = GameState(powerUp: CoreDataStack.shared.getPowerUp())
 //            gameState.level = 1000
         }
         super.init(size: size)
@@ -199,46 +199,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         invaderLabel.name = NodeNames.invaderCountHUDName
         invaderLabel.fontSize = scoreFontSize
         invaderLabel.fontColor = SKColor.black
-        invaderLabel.text = String(format: "Invaders: %04u", 0)
-        invaderLabel.position = CGPoint(x: frame.width / 2, y: frame.height -  70.0)
+        invaderLabel.text = String(format: "Invaders: %03u", 0)
+        invaderLabel.position = CGPoint(x: frame.width / 4, y: frame.height -  70.0)
         addChild(invaderLabel)
         
+        let bulletLabel = SKLabelNode(fontNamed: fontName)
+        bulletLabel.name = NodeNames.bulletsCountHUDName
+        bulletLabel.fontSize = scoreFontSize
+        bulletLabel.fontColor = SKColor.black
+        bulletLabel.text = String(format: "Bullets: %03u", gameState.maxShipBullets)
+        bulletLabel.position = CGPoint(x: frame.width * 3 / 4, y: frame.height -  70.0)
+        addChild(bulletLabel)
         
         let scoreLabel = SKLabelNode(fontNamed: fontName)
         scoreLabel.name = NodeNames.scoreHUDName
         scoreLabel.fontSize = scoreFontSize
-        
         scoreLabel.fontColor = SKColor.black
         scoreLabel.text = String(format: "%04u", gameState.score)
-        
-        scoreLabel.position = CGPoint(
-            x: frame.size.width/2,
-            y: scoreLabel.frame.height + labelPadding
-        )
+        scoreLabel.position = CGPoint(x: frame.size.width/2, y: scoreLabel.frame.height + labelPadding)
         addChild(scoreLabel)
         
         let healthLabel = SKLabelNode(fontNamed: fontName)
         healthLabel.name = NodeNames.healthHUDName
         healthLabel.fontSize = scoreFontSize
-        
         healthLabel.fontColor = SKColor.blue
         healthLabel.text = String(format: "Health:%.0f%", gameState.shipHealth * 100.0)
-        healthLabel.position = CGPoint(
-            x: healthLabel.frame.size.width / 2,
-            y: healthLabel.frame.size.height + labelPadding
-        )
+        healthLabel.position = CGPoint(x: healthLabel.frame.size.width / 2, y: healthLabel.frame.size.height + labelPadding)
         addChild(healthLabel)
         
         let shieldLabel = SKLabelNode(fontNamed: fontName)
         shieldLabel.name = NodeNames.shieldHUDName
         shieldLabel.fontSize = scoreFontSize
-        
         shieldLabel.fontColor = SKColor.green
         shieldLabel.text = String(format: "Shield:%.0f%", gameState.shieldStrength * 100.0)
-        shieldLabel.position = CGPoint(
-            x: frame.size.width - shieldLabel.frame.size.width / 2 - labelPadding,
-            y: shieldLabel.frame.size.height + labelPadding
-        )
+        shieldLabel.position = CGPoint(x: frame.size.width - shieldLabel.frame.size.width / 2 - labelPadding, y: shieldLabel.frame.size.height + labelPadding)
         addChild(shieldLabel)
     }
     
@@ -246,7 +240,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setInvaderCount(to count: Int){
         if let node = childNode(withName: NodeNames.invaderCountHUDName) as? SKLabelNode{
-            node.text = String(format: "Invaders: %04u", count)
+            node.text = String(format: "Invaders: %03u", count)
+        }
+    }
+
+    func upDateBulletCount(){
+        let count = max(0, gameState.maxShipBullets - children.filter({$0.name == NodeNames.shipBulletName}).count)
+        if let node = childNode(withName: NodeNames.bulletsCountHUDName) as? SKLabelNode{
+            node.text = String(format: "Bullets: %03u", count)
         }
     }
     
@@ -527,8 +528,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         fireBullet(bullet: bulletLeft, directionRadians: bulletDirection - Double(i) * gameState.bulletRadians, andSoundFileName: nil)
                     }
                 }
-
             }
+            upDateBulletCount()
         }
     }
     
@@ -700,7 +701,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-        
+        upDateBulletCount()
     }
     
 }
