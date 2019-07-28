@@ -29,13 +29,15 @@ class GameState{
     var biggerBombHitsToKill: Int = 2
     var biggestBombHitsToKill: Int = 4
     var ultimateBombHitsToKill: Int = 10
-    // Used to decide what bombs are created.
-    var standardBombWeighting: Double {return 50 + Double(level)}
-    var biggerBombWeighting: Double {return 30 + Double(level)}
-    var biggestBombWeighting: Double {return 10 + Double(level)}
-    var ultimateBombWeighting: Double {return 1 + Double(level)}
-    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggerBombWeighting + ultimateBombWeighting}
-    var probabilityStandard: Double { return standardBombWeighting / totalWeights}
+    // Used to decide what bombs are created. The fixed amount and increment have been chosen such that
+    // at level ~50 all types of bomb are equally likely. After that point the bigger bombs get
+    // increasingly likely
+    var standardBombWeighting: Double {return 10000 + Double(level)}
+    var biggerBombWeighting: Double {return 1000 + Double(level) * 180}
+    var biggestBombWeighting: Double {return 100 + Double(level) * 190}
+    var ultimateBombWeighting: Double {return 1 + Double(level) * 191}
+    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggestBombWeighting + ultimateBombWeighting}
+    var probabilityStandard: Double {return standardBombWeighting / totalWeights}
     var probabilityBigger: Double { return biggerBombWeighting / totalWeights }
     var probabilityBiggest: Double { return biggestBombWeighting / totalWeights }
     var probabilityUltimate: Double { return ultimateBombWeighting / totalWeights }
@@ -100,6 +102,8 @@ class GameState{
         score += bonus
         shipHealth += healthIncrementBetweenLevels
         shieldStrength += shieldIncrementBetweenLevels
+        print("\(probabilityStandard) / \(probabilityBigger) / \(probabilityBiggest) / \(probabilityUltimate)")
+
     }
     
     private func populateDefence(){
@@ -117,14 +121,13 @@ class GameState{
     }
     
     private func populateAttack(){
+        print("Polulating Attack")
         maxShipBullets = 1 + Int(powerUp.attack / 2)
         numberOfSimultaneousBullets = 1 + Int(powerUp.attack / GameState.attackToGetExtraBullet)
         // calculate the angle to use to spread out simultaneous bullets. Want spread to tend towards pi/2 radians
         let totalSpread: Double = (Double.pi / 2) * Double(numberOfSimultaneousBullets) / Double(30 + numberOfSimultaneousBullets)
         if numberOfSimultaneousBullets > 1{
             bulletRadians = totalSpread / (Double(numberOfSimultaneousBullets - 1))
-            print(bulletRadians)
-            print("Degrees = \(bulletRadians * 360 / (2*Double.pi))")
         }
         bulletForce = 5.0 + (15 * Double(powerUp.attack) / (Double(30 + powerUp.attack)))
         directionalBullets = powerUp.attack >= GameState.attackForDirectionalBullets

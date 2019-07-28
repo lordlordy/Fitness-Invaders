@@ -40,6 +40,8 @@ class BombSpriteNode: SKSpriteNode{
     
     func hit() -> Int{
         health = health - 1
+        damage = damage * 0.75
+        self.alpha = self.alpha * 0.75
         if health <= 0{
             self.removeFromParent()
             return hitsToKill

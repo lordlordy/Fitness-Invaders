@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18F132" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="HighestScore" representedClassName="HighestScore" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <entity name="PowerUp" representedClassName="PowerUp" syncable="YES" codeGenerationType="class">
         <attribute name="attack" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -7,5 +10,6 @@
     </entity>
     <elements>
         <element name="PowerUp" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="HighestScore" positionX="-63" positionY="9" width="128" height="60"/>
     </elements>
 </model>

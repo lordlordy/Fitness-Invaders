@@ -21,11 +21,16 @@ class MainViewController: UIViewController {
     @IBOutlet weak var defenceTextField: UITextField!
     @IBOutlet weak var attackTextField: UITextField!
     @IBOutlet weak var updatedTextField: UITextField!
+    @IBOutlet weak var highestScoreTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         df.dateFormat = "dd-MMM-yy hh:mm:ss"
         updateAttackAndDefence()
+        let nf: NumberFormatter = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 0
+        highestScoreTextField.text = nf.string(from: NSNumber(value: CoreDataStack.shared.highestScore()))
         // Do any additional setup after loading the view.
     }
     

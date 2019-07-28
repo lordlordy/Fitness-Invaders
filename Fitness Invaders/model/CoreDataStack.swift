@@ -42,6 +42,18 @@ class CoreDataStack{
         }
     }
     
+    func updateHighestScore(with score: Int64){
+        let hs = getHighestScoreEntity()
+        if score > hs.value{
+            hs.value = score
+            save()
+        }
+    }
+    
+    func highestScore() -> Int64{
+        return getHighestScoreEntity().value
+    }
+    
     func getPowerUp() -> PowerUp{
         let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "PowerUp")
         do{
@@ -49,8 +61,8 @@ class CoreDataStack{
             if pup.count > 0{
                 if let result = pup[0] as? PowerUp{
                     //for testing
-//                    result.defence = 15
-//                    result.attack = 100
+                    result.defence = 15
+                    result.attack = 60
                     return result
                 }
             }
@@ -61,6 +73,25 @@ class CoreDataStack{
         //no result found. Create one
         let pup = NSEntityDescription.insertNewObject(forEntityName: "PowerUp", into: modelPC.viewContext)
         return pup as! PowerUp
+    }
+    
+    private func getHighestScoreEntity() -> HighestScore{
+        let fetch = NSFetchRequest<NSFetchRequestResult>.init(entityName: "HighestScore")
+        do{
+            let hs = try modelPC.viewContext.fetch(fetch) as! [NSManagedObject]
+            if hs.count > 0{
+                if let result = hs[0] as? HighestScore{
+                    //for testing
+                    return result
+                }
+            }
+        }catch{
+            print("Fetch failed with error \(error)")
+        }
+        
+        //no result found. Create one
+        let hs = NSEntityDescription.insertNewObject(forEntityName: "HighestScore", into: modelPC.viewContext)
+        return hs as! HighestScore
     }
     
 
