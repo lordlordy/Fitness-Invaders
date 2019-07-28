@@ -70,11 +70,11 @@ class NextLevelScene: SKScene {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)  {
         
-        let gameScene = GameScene(size: self.size, gameState: nil)
+        let gameScene = GameScene(size: self.size, gameState: state)
         gameScene.scaleMode = .aspectFill
-        if let state = state{
-            gameScene.gameState = state
-        }
+//        if let state = state{
+//            gameScene.gameState = state
+//        }
         
         self.view?.presentScene(gameScene, transition: SKTransition.doorsCloseHorizontal(withDuration: 1.0))
         

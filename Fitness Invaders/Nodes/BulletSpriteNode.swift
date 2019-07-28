@@ -12,7 +12,7 @@ import SpriteKit
 class BulletSpriteNode: SKSpriteNode{
     
     init(wallBitMask: UInt32){
-        let texture = SKTexture(imageNamed: "shipBullet")
+        let texture = SKTexture(imageNamed: "bullet")
         super.init(texture: texture, color: UIColor.clear, size: texture.size())
         self.name = NodeNames.shipBulletName
         self.physicsBody = SKPhysicsBody(rectangleOf: shipBulletSize)

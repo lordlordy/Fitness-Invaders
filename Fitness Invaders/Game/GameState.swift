@@ -23,18 +23,24 @@ class GameState{
     var standardBombDamage: Float = -0.05
     var biggerBombDamage: Float = -0.1
     var biggestBombDamage: Float = -0.2
-    // How many bullet hits to remove the bomb
+    var ultimateBombDamage: Float = -1.0
+    // How many bullet hits to remove the bomb - probably should be moved out
     var standardBombHitsToKill: Int = 1
     var biggerBombHitsToKill: Int = 2
     var biggestBombHitsToKill: Int = 4
-    // Used to decide what bombs are created.
-    var standardBombWeighting: Double {return 20 + Double(level)}
-    var biggerBombWeighting: Double {return 1 + Double(level)}
-    var biggestBombWeighting: Double {return 0.5 + Double(level) * 0.75}
-    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggerBombWeighting}
-    var probabilityStandard: Double { return standardBombWeighting / totalWeights}
+    var ultimateBombHitsToKill: Int = 10
+    // Used to decide what bombs are created. The fixed amount and increment have been chosen such that
+    // at level ~50 all types of bomb are equally likely. After that point the bigger bombs get
+    // increasingly likely
+    var standardBombWeighting: Double {return 10000 + Double(level)}
+    var biggerBombWeighting: Double {return 1000 + Double(level) * 180}
+    var biggestBombWeighting: Double {return 100 + Double(level) * 190}
+    var ultimateBombWeighting: Double {return 1 + Double(level) * 191}
+    var totalWeights: Double { return standardBombWeighting + biggerBombWeighting + biggestBombWeighting + ultimateBombWeighting}
+    var probabilityStandard: Double {return standardBombWeighting / totalWeights}
     var probabilityBigger: Double { return biggerBombWeighting / totalWeights }
     var probabilityBiggest: Double { return biggestBombWeighting / totalWeights }
+    var probabilityUltimate: Double { return ultimateBombWeighting / totalWeights }
     // Maximum bombs on screen at once
     var maxInvaderBombs: Int { return 1 + level/2}
     // amount of time between looking to create a bomb
@@ -62,11 +68,11 @@ class GameState{
     // MARK:- Attack variables
     
     // higher is better
-    var maxShipBullets = 500
+    var maxShipBullets = 2
     // number of bullets fired at once
-    var numberOfSimultaneousBullets = 21
+    var numberOfSimultaneousBullets = 3
     // force the ships gun applies to the bullet
-    var bulletForce: Double = 20.0
+    var bulletForce: Double = 5.0
     // length of time the force is applied for
     var bulletForceDuration: TimeInterval = 0.1
     // whether bullets go straight up or towards the screen tap
@@ -75,21 +81,76 @@ class GameState{
     var bulletRadians: Double = Double.pi / 100
     // which walls bullets bounce off. 0x0 means none then have bitmasks:
     // ContactMasks.leftWall, ContactMasks.rightWall, ContactMasks.topWall, ContactMasks.bottomWall
-    var wallsToBounceOff: UInt32 = ContactMasks.leftWall + ContactMasks.rightWall + ContactMasks.topWall + ContactMasks.bottomWall
+    var wallsToBounceOff: UInt32 = 0
     
     // MARK:- Score Variables
     var score: Int = 0
     var level: Int = 0
     var bonus: Int { return level * level * 100}
     
-    private var userPowerUps: PowerUp = CoreDataStack.shared.getPowerUp()
-    private var defence: Int16 { return userPowerUps.defence }
-    private var attack: Int16 { return userPowerUps.attack }
+    private var powerUp: PowerUp
+
+    
+    init(powerUp: PowerUp){
+        self.powerUp = powerUp
+        populateDefence()
+        populateAttack()
+    }
     
     func advanceALevel(){
         level += 1
         score += bonus
         shipHealth += healthIncrementBetweenLevels
         shieldStrength += shieldIncrementBetweenLevels
+        print("\(probabilityStandard) / \(probabilityBigger) / \(probabilityBiggest) / \(probabilityUltimate)")
+
     }
+    
+    private func populateDefence(){
+        shipBulletsKnockOutBombs = powerUp.defence >= GameState.defenceToKnockOutBombs
+        shipHealth = 1.0 + Float(powerUp.defence) * 0.05
+        if powerUp.defence >= GameState.defenceToGetShield{
+            shieldStrength = 1.0 + Float(powerUp.defence - GameState.defenceToGetShield) * 0.05
+        }
+        if powerUp.defence >= GameState.defenceToGetHealthIncrements{
+            healthIncrementBetweenLevels = Float(powerUp.defence - GameState.defenceToGetHealthIncrements + 1) * 0.05
+        }
+        if powerUp.defence >= GameState.defenceToGetShieldIncrements{
+            shieldIncrementBetweenLevels = Float(powerUp.defence - GameState.defenceToGetShieldIncrements + 1) * 0.05
+        }
+    }
+    
+    private func populateAttack(){
+        print("Polulating Attack")
+        maxShipBullets = 1 + Int(powerUp.attack / 2)
+        numberOfSimultaneousBullets = 1 + Int(powerUp.attack / GameState.attackToGetExtraBullet)
+        // calculate the angle to use to spread out simultaneous bullets. Want spread to tend towards pi/2 radians
+        let totalSpread: Double = (Double.pi / 2) * Double(numberOfSimultaneousBullets) / Double(30 + numberOfSimultaneousBullets)
+        if numberOfSimultaneousBullets > 1{
+            bulletRadians = totalSpread / (Double(numberOfSimultaneousBullets - 1))
+        }
+        bulletForce = 5.0 + (15 * Double(powerUp.attack) / (Double(30 + powerUp.attack)))
+        directionalBullets = powerUp.attack >= GameState.attackForDirectionalBullets
+        if powerUp.attack >= GameState.attackForBounceOffWalls{
+            wallsToBounceOff = ContactMasks.leftWall + ContactMasks.rightWall
+        }
+        if powerUp.attack >= GameState.attackForBounceOffRoof{
+            wallsToBounceOff += ContactMasks.topWall
+        }
+        if powerUp.attack >= GameState.attackForBounceOffFloor{
+            wallsToBounceOff += ContactMasks.bottomWall
+        }
+    }
+    
+    static let attackToGetExtraBullet: Int16 = 10
+    static let attackForDirectionalBullets: Int16 = 30
+    static let attackForBounceOffWalls: Int16 = 50
+    static let attackForBounceOffRoof: Int16 = 75
+    static let attackForBounceOffFloor: Int16 = 100
+
+    static let defenceToGetShield: Int16 = 5
+    static let defenceToGetHealthIncrements: Int16 = 8
+    static let defenceToKnockOutBombs: Int16 = 12
+    static let defenceToGetShieldIncrements: Int16 = 15
+    
 }
