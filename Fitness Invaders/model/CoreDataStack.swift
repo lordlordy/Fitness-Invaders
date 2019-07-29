@@ -61,8 +61,8 @@ class CoreDataStack{
             if pup.count > 0{
                 if let result = pup[0] as? PowerUp{
                     //for testing
-                    result.defence = 15
-                    result.attack = 60
+                    result.defence = 8
+                    result.attack = 11
                     return result
                 }
             }
@@ -72,6 +72,10 @@ class CoreDataStack{
         
         //no result found. Create one
         let pup = NSEntityDescription.insertNewObject(forEntityName: "PowerUp", into: modelPC.viewContext)
+        let powerUp: PowerUp = pup as! PowerUp
+        powerUp.defence = 8
+        powerUp.attack = 11
+        save()
         return pup as! PowerUp
     }
     

@@ -108,7 +108,7 @@ class GameState{
     
     private func populateDefence(){
         shipBulletsKnockOutBombs = powerUp.defence >= GameState.defenceToKnockOutBombs
-        shipHealth = 1.0 + Float(powerUp.defence) * 0.05
+        shipHealth = 1.0 + Float(powerUp.defence) * 0.1
         if powerUp.defence >= GameState.defenceToGetShield{
             shieldStrength = 1.0 + Float(powerUp.defence - GameState.defenceToGetShield) * 0.05
         }
@@ -122,14 +122,14 @@ class GameState{
     
     private func populateAttack(){
         print("Polulating Attack")
-        maxShipBullets = 1 + Int(powerUp.attack / 2)
-        numberOfSimultaneousBullets = 1 + Int(powerUp.attack / GameState.attackToGetExtraBullet)
+        maxShipBullets = 1 + Int(powerUp.attack)
+        numberOfSimultaneousBullets = 1 + Int(powerUp.attack / GameState.attackToGetExtraSimultaneousBullet)
         // calculate the angle to use to spread out simultaneous bullets. Want spread to tend towards pi/2 radians
         let totalSpread: Double = (Double.pi / 2) * Double(numberOfSimultaneousBullets) / Double(30 + numberOfSimultaneousBullets)
         if numberOfSimultaneousBullets > 1{
             bulletRadians = totalSpread / (Double(numberOfSimultaneousBullets - 1))
         }
-        bulletForce = 5.0 + (15 * Double(powerUp.attack) / (Double(30 + powerUp.attack)))
+        bulletForce = 5.0 + (15 * Double(powerUp.attack) / (Double(15 + powerUp.attack)))
         directionalBullets = powerUp.attack >= GameState.attackForDirectionalBullets
         if powerUp.attack >= GameState.attackForBounceOffWalls{
             wallsToBounceOff = ContactMasks.leftWall + ContactMasks.rightWall
@@ -142,15 +142,16 @@ class GameState{
         }
     }
     
-    static let attackToGetExtraBullet: Int16 = 10
-    static let attackForDirectionalBullets: Int16 = 30
-    static let attackForBounceOffWalls: Int16 = 50
-    static let attackForBounceOffRoof: Int16 = 75
-    static let attackForBounceOffFloor: Int16 = 100
+    static let attackToGetExtraSimultaneousBullet: Int16 = 3
+    static let attackForDirectionalBullets: Int16 = 5
+    static let attackForBounceOffWalls: Int16 = 10
+    static let attackForBounceOffRoof: Int16 = 20
+    static let attackForBounceOffFloor: Int16 = 30
 
-    static let defenceToGetShield: Int16 = 5
+    
+    static let defenceToGetShield: Int16 = 3
     static let defenceToGetHealthIncrements: Int16 = 8
-    static let defenceToKnockOutBombs: Int16 = 12
-    static let defenceToGetShieldIncrements: Int16 = 15
+    static let defenceToKnockOutBombs: Int16 = 6
+    static let defenceToGetShieldIncrements: Int16 = 10
     
 }
