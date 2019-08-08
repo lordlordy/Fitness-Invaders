@@ -66,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             gameState = gs
         }else{
             gameState = GameState(powerUp: CoreDataStack.shared.getPowerUp())
-//            gameState.level = 100
+//            gameState.level = 20
         }
         super.init(size: size)
         self.backgroundColor = MAIN_BLUE
@@ -546,7 +546,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK:- Firing / Dropping
     
     func fireBullet(bullet: SKNode, directionRadians direction: Double, andSoundFileName soundName: String?) {
-        
+        run(SKAction.playSoundFileNamed("ShipBullet.wav", waitForCompletion: false))
+
         worldNode.addChild(bullet)
         let sign = abs(direction) / direction
         let force = SKAction.applyForce(CGVector(dx: sign * gameState.bulletForce * cos(direction), dy:  sign * gameState.bulletForce * sin(direction)) , duration: gameState.bulletForceDuration)
@@ -655,6 +656,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             x: invader.position.x,
                             y: invader.position.y - invader.frame.size.height / 2 + bomb.frame.size.height / 2
                         )
+                        run(SKAction.playSoundFileNamed("InvaderBullet.wav", waitForCompletion: false))
+
                         worldNode.addChild(bomb)
                     }
                 }
@@ -692,6 +695,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeBitMasks = [contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask]
         if nodeBitMasks.contains(ContactMasks.ship) && nodeBitMasks.contains(ContactMasks.bomb){
             // handle ship being hit by invader bomb
+            run(SKAction.playSoundFileNamed("ShipHit.wav", waitForCompletion: false))
 
             if let bomb = contact.bodyA.node as? BombSpriteNode{
                 adjustShipHealth(by: bomb.damage)
@@ -735,7 +739,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }else if nodeBitMasks.contains(ContactMasks.invader) && nodeBitMasks.contains(ContactMasks.shipBullet){
             // Ship bullet hit an invader
-//            run(SKAction.playSoundFileNamed("InvaderHit.wav", waitForCompletion: false))
+            run(SKAction.playSoundFileNamed("InvaderHit.wav", waitForCompletion: false))
             contact.bodyA.node!.removeFromParent()
             contact.bodyB.node!.removeFromParent()
             
